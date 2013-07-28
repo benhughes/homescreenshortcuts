@@ -1,0 +1,36 @@
+
+    <div class="header singleApp">
+        <img class="appIcon mediumSize" title="{{name}}" alt="{{name}}" src="{{imageURL}}" />
+        <h1>{{name}}</h1>
+    </div>
+
+    <h3>Shortcuts</h3>
+    {{#if shortcuts}}
+    <ul class="shortCuts list">
+        {{#each shortcuts}}
+        <li class="shortcut" data-shortcut-id="{{id}}">
+            <span class="appName">{{name}}</span>
+            <span class="shortcutDescription">{{description}}</span>
+            {{#if custom}}
+            <h4>Options</h4>
+            <ul class="optionsList">
+            {{#each custom}}
+                {{{customBuilder this @index}}}
+            {{/each}}
+            </ul>
+            <div class="shortCutActions">
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="customShortcutSubmit testShortcut action actionLow" href="{{action}}">Try shortcut</a>
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="customShortcutSubmit createShortcut action actionHigh" href="{{action}}">Create shortcut</a>
+            </div>
+            {{else}}
+            <div class="shortCutActions">
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="testShortcut action actionLow" href="{{action}}">Try shortcut</a>
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="staticShortcutSubmit createShortcut action actionHigh" href="{{action}}">Create shortcut</a>
+            </div>
+            {{/if}}
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <span class="no-shortcuts">{{../name}} has no shortcuts at present</span>
+    {{/if}}

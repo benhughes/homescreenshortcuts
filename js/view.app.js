@@ -1,0 +1,124 @@
+define([
+    'log',
+    'collection.apps',
+    'text!/templates/appview.main.html',
+    'text!/templates/single.app.html',
+    'text!/templates/shortcut.html'
+], function (log, collectionApps, appViewTemplate, singleAppTemplate, shortcutTemplate) {
+    'use strict';
+    return Backbone.View.extend({
+        logPrefix: "views.app",
+        className: 'main',
+        appModel: null,
+        $mainContainer: null,
+        collectionApps: collectionApps,
+        customSettings: {},
+        templates: {
+            appTemplate: Handlebars.compile(appViewTemplate),
+            singleAppTemplate: Handlebars.compile(singleAppTemplate),
+            shortcutTemplate: Handlebars.compile(shortcutTemplate)
+        },
+        cache: {
+            appList: ''
+        },
+        initialize: function () {
+            log(this.logPrefix, 'initializing with id', this.id);
+            this.$mainContainer = $('#mainContainer');
+            this.bindEvents();
+            this.render();
+        },
+        events: {
+            'click #singleAppContainer ul.shortCuts a.createShortcut': 'handleAppLinkCLick',
+            'change #singleAppContainer ul.optionsList input': 'handleOptionChange'
+        },
+        bindEvents: function () {
+            this.collectionApps.on('add', $.proxy(this.renderSingleApp, this));
+            this.collectionApps.on('change', $.proxy(this.renderSingleApp, this));
+            this.collectionApps.on('remove', $.proxy(this.renderSingleApp, this));
+
+        },
+        render: function () {
+            this.el.innerHTML = this.templates.appTemplate({});
+            this.$mainContainer.html(this.el);
+            if (this.collectionApps.get(this.id)) {
+                this.renderSingleApp();
+            }
+        },
+        renderSingleApp: function () {
+            var data, html;
+
+            if (!this.appModel) {
+                this.appModel = this.collectionApps.get(this.id);
+            }
+
+            if (!this.appModel) {
+                data = {};
+            } else {
+                data = this.appModel.toJSON();
+            }
+            html = this.templates.singleAppTemplate(data);
+
+
+            console.log(this.collectionApps);
+
+
+            if (html !== this.cache.appList) {
+                this.$mainContainer.find('#singleAppContainer').html(html);
+            }
+        },
+        handleAppLinkCLick: function (e) {
+            var linkData = $(e.target).data(),
+                shortcutData, html;
+            e.preventDefault();
+            log(this.logPrefix, 'detecting click on app link');
+            shortcutData = this.prepareShortcutData(linkData);
+            html = 'data:text/html;charset=UTF-8,' + this.templates.shortcutTemplate(shortcutData);
+            console.log(shortcutData);
+            console.log(html);
+            location.href = html;
+        },
+        generateCustomShortCuts: function (data) {
+            var shortcutData = data.shortcut;
+            console.log(data);
+            if (shortcutData.action.match('{{(.*?)}}')) {
+                var template = Handlebars.compile(shortcutData.action),
+                    customSettings = this.customSettings[shortcutData.id] || {};
+
+                shortcutData.action = template(customSettings);
+            }
+            return data;
+
+        },
+
+        prepareShortcutData: function (linkData) {
+            var returnedData, shortcutData;
+            console.log(linkData);
+            if (linkData.shortcutId === undefined && linkData.appId === undefined) {
+                throw "no shortcut-id or/and app-id in the element";
+            }
+            returnedData = this.collectionApps.get(linkData.appId).toJSON();
+            returnedData.shortcut = returnedData.shortcuts[linkData.shortcutId];
+            returnedData.imageURL = location.origin + returnedData.imageURL;
+            returnedData = this.generateCustomShortCuts(returnedData);
+            return returnedData;
+        },
+        handleOptionChange: function (e) {
+            var $thisEl = $(e.target),
+                optionId = $thisEl.data('customid'),
+                shortcutID = $thisEl.closest('li.shortcut').data('shortcut-id');
+
+            if (this.customSettings[shortcutID]) {
+
+                this.customSettings[shortcutID][optionId] = $thisEl.val();
+            } else {
+
+                this.customSettings[shortcutID] = {};
+                this.customSettings[shortcutID][optionId] = $thisEl.val();
+            }
+
+            console.log(this.customSettings, $thisEl.data());
+
+
+        }
+    });
+});

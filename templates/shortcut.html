@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>{{shortcut.name}}</title>
+    <script type="text/javascript">
+        if (!window.navigator.standalone) {
+            document.write("<link rel='apple-touch-icon-precomposed' href='{{imageURL}}' />");
+        }
+    </script>
+    <link rel="apple-touch-icon-precomposed" href="{{imageURL}}">
+</head>
+<body style="margin:0px; background-color:#aeaeae;">
+    <a id="shortcut" href="{{shortcut.action}}"></a>
+    <div id="shortcutActive" style="display:none;">
+        <p>launching shortcut {{shortcut.name}}</p>
+    </div>
+    <div id="shortcutNotActive" style="display:none; text-align: center">
+        <a id="shortcut" href="{{shortcut.action}}">
+            <img style="border-radius:20px; display:block; margin: 0 auto" src="{{imageURL}}">
+        </a>
+        <span id="icon_text">Quick Entry</span>
+        <div id="addToHomeScreen" class="iphone">Create a shortcut to Omnifocus Quick Entry: tap share and then Add to
+            Home Screen. Please wait until icon image is fully loaded in next view.</div>
+    </div>
+    <script type="text/javascript">
+        var a;
+        if (window.navigator.standalone) {
+            a = document.getElementById("shortcutActive");
+            a.style.display = "block";
+            var e= document.getElementById("shortcut");
+            if (e.href.match(/\[prompt\]/)) {
+                e.href = encodeURI(e.href.replace(/\[prompt\]/, prompt('Enter a string')));
+            }
+            var ev= document.createEvent("MouseEvents");
+            ev.initEvent("click",true,true);
+            e.dispatchEvent(ev);
+        } else {
+            a = document.getElementById("shortcutNotActive");
+            a.style.display = "block";
+        }
+    </script>
+</body>
+</html>
