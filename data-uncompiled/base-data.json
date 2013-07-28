@@ -1,0 +1,101 @@
+{
+    "apps" : {
+        "instagram" : {
+            "protocol" : "instagram",
+            "name" : "Instagram",
+            "imageURL" : "/img/app-icons/instagram-175x175.jpg",
+            "shortcuts" : {
+                "camera" : {
+                    "name" : "Instagram Camera",
+                    "description" : "Opens the Instagram camera in one click",
+                    "id" : "camera",
+                    "action" : "instagram://camera"
+                },
+                "tag" : {
+                    "name" : "By Tag",
+                    "description" : "Search Instagram by a tag to display the latest images with that tag",
+                    "id" : "tag",
+                    "action" : "instagram://tag?name={{tag}}",
+                    "custom" : {
+                        "tag" : {
+                            "type" : "text",
+                            "customid" : "tag",
+                            "label" : "Tag",
+                            "help" : "Enter a tag such as 'scenery' to see loads of beautiful scenic shots"
+                        }
+                    }
+                },
+                "tagOotd" : {
+                    "name" : "View scenery tag",
+                    "description" : "View photos tagged with #scenery",
+                    "id" : "tagOotd",
+                    "action" : "instagram://tag?name=scenery"
+                }
+            },
+            "itunes" : "https://itunes.apple.com/gb/app/instagram/id389801252?mt=8",
+            "id" : "instagram"
+        },
+        "gmail" : {
+            "protocol" : "googlegmail",
+            "name" : "Gmail",
+            "imageURL" : "/img/app-icons/gmail-175x175.jpg",
+            "shortcuts" : {
+                "compose" : {
+                    "name" : "Compose new email",
+                    "description" : "Compose a new email",
+                    "id" : "compose",
+                    "action" : "googlegmail:///co?subject=&body=&to="
+                }
+            },
+            "itunes" : "https://itunes.apple.com/gb/app/gmail-email-from-google/id422689480?mt=8",
+            "id" : "gmail"
+        },
+        "twitter" : {
+            "protocol" : "twitter",
+            "name" : "Twitter",
+            "imageURL" : "/img/app-icons/twitter-175x175.jpg",
+            "shortcuts" : {
+                "tweet" : {
+                    "name" : "Tweet",
+                    "description" : "Quickly tweet in one click",
+                    "id" : "tweet",
+                    "action" : "twitter://post?message="
+                }
+            },
+            "id" : "twitter"
+        },
+        "googlemaps" : {
+            "protocol" : "comgooglemaps",
+            "name" : "Google Maps",
+            "imageURL" : "/img/app-icons/google-maps-175x175.jpg",
+            "shortcuts" : {
+                "publicTransport" : {
+                    "action" : "comgooglemaps://?saddress=&daddr={{location}}&directionsmode=transit"
+                },
+                "home" : {
+                    "name" : "Home Directions",
+                    "description" : "Get me home",
+                    "id" : "home",
+                    "action" : "comgooglemaps://?saddress=&daddr=6%20Melgund%20Road%2C%20N5%201PT&directionsmode=transit"
+                }
+            },
+            "itunes" : "https://itunes.apple.com/gb/app/google-maps/id585027354?mt=8",
+            "id" : "googlemaps"
+        },
+        "drafts" : {
+            "protocol" : "drafts",
+            "name" : "Drafts",
+            "imageURL" : "/img/app-icons/drafts-175x175.jpg",
+            "shortcuts" : {
+                "new" : {
+                    "name" : "New",
+                    "description" : "Create a new Draft",
+                    "id" : "new",
+                    "action" : "drafts://x-callback-url/create?text="
+                }
+            },
+            "id" : "drafts",
+            "appstore" : "https://itunes.apple.com/us/app/drafts/id502385074?mt=8"
+        }
+    }
+}
