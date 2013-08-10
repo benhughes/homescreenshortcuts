@@ -9,6 +9,7 @@ lib-cov
 *.ds_store
 
 .idea/
+data/
 
 pids
 logs
