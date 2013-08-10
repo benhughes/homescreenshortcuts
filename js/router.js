@@ -1,8 +1,6 @@
 define([
-    'log',
-    'view.main',
-    'view.app'
-], function (log, ViewMain, ViewApp) {
+    'log'
+], function (log) {
     var logPrefix = "router";
     return Backbone.Router.extend({
             routes: {
@@ -12,12 +10,15 @@ define([
             },
             main: function () {
                 log(logPrefix, "Navigating to main");
-
-                new ViewMain();
+                require(['view.main'], function (viewMain) {
+                    new viewMain();
+                });
             },
             appView: function (id) {
                 log(logPrefix, "Navigating to app", id);
-                new ViewApp({id: id});
+                require(['view.app'], function (ViewApp) {
+                    new ViewApp({id: id});
+                });
 
             },
             initialize: function () {

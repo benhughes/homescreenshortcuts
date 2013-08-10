@@ -39,8 +39,6 @@ define([
             this.renderAppList();
         },
         renderAppList: function () {
-            log()
-
             var data = {apps: this.collectionApps.toJSON()},
                 html = this.templates.appsTemplate(data);
 

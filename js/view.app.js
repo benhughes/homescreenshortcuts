@@ -1,10 +1,11 @@
 define([
     'log',
     'collection.apps',
+    'model.app',
     'text!/templates/appview.main.html',
     'text!/templates/single.app.html',
     'text!/templates/shortcut.html'
-], function (log, collectionApps, appViewTemplate, singleAppTemplate, shortcutTemplate) {
+], function (log, collectionApps, modelApp, appViewTemplate, singleAppTemplate, shortcutTemplate) {
     'use strict';
     return Backbone.View.extend({
         logPrefix: "views.app",
@@ -23,45 +24,30 @@ define([
         },
         initialize: function () {
             log(this.logPrefix, 'initializing with id', this.id);
-            this.$mainContainer = $('#mainContainer');
+            this.$mainContainer = $('#mainContainer').addClass('loading');
+            this.appModel = new modelApp({id: this.id});
             this.bindEvents();
+            this.appModel.fetch();
             this.render();
         },
+
         events: {
             'click #singleAppContainer ul.shortCuts a.createShortcut': 'handleAppLinkCLick',
             'change #singleAppContainer ul.optionsList input': 'handleOptionChange'
         },
         bindEvents: function () {
-            this.collectionApps.on('add', $.proxy(this.renderSingleApp, this));
-            this.collectionApps.on('change', $.proxy(this.renderSingleApp, this));
-            this.collectionApps.on('remove', $.proxy(this.renderSingleApp, this));
-
+            this.appModel.on('change', $.proxy(this.render, this));
         },
         render: function () {
             this.el.innerHTML = this.templates.appTemplate({});
             this.$mainContainer.html(this.el);
-            if (this.collectionApps.get(this.id)) {
-                this.renderSingleApp();
-            }
+            this.renderSingleApp();
+
         },
         renderSingleApp: function () {
             var data, html;
-
-            if (!this.appModel) {
-                this.appModel = this.collectionApps.get(this.id);
-            }
-
-            if (!this.appModel) {
-                data = {};
-            } else {
-                data = this.appModel.toJSON();
-            }
+            data = this.appModel.toJSON();
             html = this.templates.singleAppTemplate(data);
-
-
-            console.log(this.collectionApps);
-
-
             if (html !== this.cache.appList) {
                 this.$mainContainer.find('#singleAppContainer').html(html);
             }

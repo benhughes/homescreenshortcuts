@@ -2,10 +2,12 @@ define([
     'log'
 ], function (log) {
     return Backbone.Model.extend({
-            logPrefix: "model.app.js",
-
-            initialize: function () {
-                log(this.logPrefix, 'initialising');
-            }
-        });
+        logPrefix: "model.app.js",
+        url: function () {
+            return 'data/apps/' + this.id + '/' + this.id + '.json';
+        },
+        initialize: function () {
+            log(this.logPrefix, 'initialising');
+        }
+    });
 });
