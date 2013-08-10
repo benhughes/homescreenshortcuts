@@ -3,12 +3,20 @@ define([
     'model.app'
 ], function (log, AppModel) {
     'use strict';
-    var AppsCollection = Backbone.Firebase.Collection.extend({
+    var AppsCollection = Backbone.Collection.extend({
         logPrefix: "collection.apps.js",
         model: AppModel,
-        firebase: "https://homescreenshortcuts.firebaseio.com/apps",
+        url: 'data/apps/apps.json',
+        parse: function (data) {
+            var processedData = [];
+            _.each(data, function (item) {
+                processedData.push(item);
+            }, this);
+            return processedData;
+        },
         initialize: function () {
-            log(this.logPrefix, 'initialising with path ', this.firebase);
+            this.fetch();
+            log(this.logPrefix, 'initialising with path ', this.url);
         }
     });
 

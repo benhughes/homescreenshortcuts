@@ -39,11 +39,10 @@ define([
             this.renderAppList();
         },
         renderAppList: function () {
-            console.log(appsTemplate);
+            log()
 
             var data = {apps: this.collectionApps.toJSON()},
                 html = this.templates.appsTemplate(data);
-            console.log(this.collectionApps);
 
 
             if (html !== this.cache.appList) {
