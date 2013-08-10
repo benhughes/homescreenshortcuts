@@ -29,20 +29,19 @@ define([
             this.bindEvents();
             this.appModel.fetch();
             this.render();
+            console.log(this.el)
         },
-
         events: {
             'click #singleAppContainer ul.shortCuts a.createShortcut': 'handleAppLinkCLick',
             'change #singleAppContainer ul.optionsList input': 'handleOptionChange'
         },
         bindEvents: function () {
-            this.appModel.on('change', $.proxy(this.render, this));
+            this.appModel.on('change', $.proxy(this.renderSingleApp, this));
         },
         render: function () {
             this.el.innerHTML = this.templates.appTemplate({});
             this.$mainContainer.html(this.el);
             this.renderSingleApp();
-
         },
         renderSingleApp: function () {
             var data, html;
@@ -50,9 +49,11 @@ define([
             html = this.templates.singleAppTemplate(data);
             if (html !== this.cache.appList) {
                 this.$mainContainer.find('#singleAppContainer').html(html);
+                this.cache.appList = html;
             }
         },
         handleAppLinkCLick: function (e) {
+            log(this.logPrefix, 'handleAppLinkCLick');
             var linkData = $(e.target).data(),
                 shortcutData, html;
             e.preventDefault();

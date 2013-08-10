@@ -10,13 +10,13 @@ define([
             },
             main: function () {
                 log(logPrefix, "Navigating to main");
-                require(['view.main'], function (viewMain) {
+                require(['view.main.js'], function (viewMain) {
                     new viewMain();
                 });
             },
             appView: function (id) {
                 log(logPrefix, "Navigating to app", id);
-                require(['view.app'], function (ViewApp) {
+                require(['view.app.js'], function (ViewApp) {
                     new ViewApp({id: id});
                 });
 

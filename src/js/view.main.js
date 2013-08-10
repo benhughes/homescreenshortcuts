@@ -57,9 +57,6 @@ define([
             console.log(shortcutData);
             console.log(html);
             location.href = html;
-
-
-
         },
         prepareShortcutData: function (linkData) {
             var returnedData;
