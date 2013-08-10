@@ -18,7 +18,7 @@
     <meta name="apple-mobile-web-app-title" content="">
 
 
-    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
     <link rel="stylesheet" type="text/css" href="css/module.app.list.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.apps.css"/>
@@ -28,11 +28,29 @@
     <script type='text/javascript' src='js/lib/backbone/backbone.js'></script>
     <script type='text/javascript' src='js/lib/handlebars/handlebars.js'></script>
     <script type='text/javascript' src='js/lib/handlebars/helpers/handlebar.helpers.js'></script>
+    <script type='text/javascript' src='js/lib/bootstrap/bootstrap.js'></script>
 
     <script src="js/lib/require/require.js" data-main="js/main"></script>
 </head>
 <body>
-    <div id="mainContainer"></div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/#home" class="navbar-brand">IOS Shortcuts</a>
+            <div class="nav-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/#all-apps">All Apps</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="mainContainer"></div>
 
 
 

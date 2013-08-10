@@ -19,13 +19,13 @@
             {{/each}}
             </ul>
             <div class="shortCutActions">
-                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="customShortcutSubmit testShortcut action actionLow" href="{{action}}">Try shortcut</a>
-                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="customShortcutSubmit createShortcut action actionHigh" href="{{action}}">Create shortcut</a>
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="customShortcutSubmit testShortcut btn btn-link" href="{{action}}">Try shortcut</a>
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="customShortcutSubmit createShortcut btn btn-primary" href="{{action}}">Create shortcut</a>
             </div>
             {{else}}
             <div class="shortCutActions">
-                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="testShortcut action actionLow" href="{{action}}">Try shortcut</a>
-                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="staticShortcutSubmit createShortcut action actionHigh" href="{{action}}">Create shortcut</a>
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="testShortcut btn btn-link" href="{{action}}">Try shortcut</a>
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="staticShortcutSubmit createShortcut btn btn-primary" href="{{action}}">Create shortcut</a>
             </div>
             {{/if}}
         </li>
