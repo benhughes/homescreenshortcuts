@@ -1,14 +1,10 @@
 var baseData = require('../../data-uncompiled/base-data.json'),
     path = require('path'),
-    fs = require('fs'),
-    staticApi = require('./static-api/static-api');
+    staticApi = require('static-api');
 
 
-var dataFolder = path.join(__dirname, '../../data/');
-
-if (!baseData.apps) {
-    throw('No app data in base-data.json');
-}
+var dataFolder = path.join(__dirname, '../../src/data');
+console.log(dataFolder)
 
 new staticApi({
     outputFolder: dataFolder,
