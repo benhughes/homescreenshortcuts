@@ -70,7 +70,18 @@
             "imageURL" : "/img/app-icons/google-maps-175x175.jpg",
             "shortcuts" : {
                 "publicTransport" : {
-                    "action" : "comgooglemaps://?saddress=&daddr={{location}}&directionsmode=transit"
+                    "name": "Take me home (public transport)",
+                    "description": "Get directions straight to your front door with one click",
+                    "id": "publicTransport",
+                    "action" : "comgooglemaps://?saddress=&daddr={{location}}&directionsmode=transit",
+                    "custom" : {
+                        "tag" : {
+                            "type" : "text",
+                            "customid" : "location",
+                            "label" : "Your desired location",
+                            "help" : "Enter a full address, for best results include your postcode"
+                        }
+                    }
                 },
                 "home" : {
                     "name" : "Home Directions",
