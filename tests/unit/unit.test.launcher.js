@@ -7,6 +7,11 @@ for (var file in window.__karma__.files) {
     }
 }
 
+//overwrite the log. We don't want console.log to be fired
+define('log', function () {
+    return jasmine.createSpy('log');
+});
+
 requirejs.config({
     // Karma serves files from '/base'
     baseUrl: '/base/src/js',

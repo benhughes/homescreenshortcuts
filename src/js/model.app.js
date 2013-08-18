@@ -5,9 +5,6 @@ define([
         logPrefix: "model.app.js",
         url: function () {
             return 'data/apps/' + this.id + '/' + this.id + '.json';
-        },
-        initialize: function () {
-            log(this.logPrefix, 'initialising');
         }
     });
 });

@@ -1,7 +1,3 @@
-//overwrite the log. We don't want console.log to be fired
-define('log', function () {
-    return jasmine.createSpy('log');
-});
 define(['router'], function (router) {
     var routerFunctions;
     beforeEach(function () {
