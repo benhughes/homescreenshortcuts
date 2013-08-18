@@ -28,7 +28,22 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['dots', 'junit'],
+    reporters: ['dots', 'junit', 'coverage'],
+
+
+    preprocessors: {
+        './src/js/*.js': 'coverage'
+    },
+
+    coverageReporter: {
+        type: 'html',
+        dir: 'tests/out/unit/'
+    },
+
+    junitReporter: {
+        // will be resolved to basePath (in the same way as files/exclude patterns)
+        outputFile: 'tests/out/test-results-unit.xml'
+    },
 
 
     // web server port
