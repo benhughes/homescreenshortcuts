@@ -16,6 +16,8 @@ module.exports = function(config) {
     files: [
       {pattern: 'src/js/*.js', included: false},
       {pattern: 'tests/unit/**spec.js', included: false},
+      'src/js/lib/underscore/underscore.js',
+      'src/js/lib/backbone/backbone.min.js',
       'tests/unit/unit.test.launcher.js'
     ],
 
