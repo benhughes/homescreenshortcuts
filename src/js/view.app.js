@@ -103,9 +103,6 @@ define([
                 this.customSettings[shortcutID][optionId] = $thisEl.val();
             }
 
-            console.log(this.customSettings, $thisEl.data());
-
-
         }
     });
 });
