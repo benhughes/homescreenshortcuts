@@ -1,0 +1,27 @@
+{
+  "name": "homescreenshortcuts",
+  "version": "0.0.0",
+  "description": "homescreenshortcuts ===================",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+   "devDependencies": {
+        "karma": "~0.10",
+        "karma-requirejs": "*",
+        "karma-jasmine": "*",
+        "karma-safari-launcher": "*",
+        "karma-junit-reporter": "*",
+        "karma-coverage": "*"
+  },
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start tests/unit/unit.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benhughes/homescreenshortcuts.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
