@@ -11,10 +11,10 @@ define(['utils'], function (utils) {
             it('should return false if passed param does not contain :// or they are non strings', function () {
                 expect(utils.isURI('test:/test')).toEqual(false);
                 expect(utils.isURI('test//test')).toEqual(false);
+                expect(utils.isURI('testtest')).toEqual(false);
                 expect(utils.isURI('')).toEqual(false);
                 expect(utils.isURI()).toEqual(false);
                 expect(utils.isURI(345)).toEqual(false);
-                expect(utils.isURI({})).toEqual(false);
                 expect(utils.isURI({})).toEqual(false);
             });
         })
