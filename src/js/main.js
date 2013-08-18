@@ -4,7 +4,6 @@
 	require.config({
 		paths: {
 			'text': 'lib/require/plugins/text',
-			'log': 'log/log'
 		},
         baseUrl: 'js',
 		shim: {
