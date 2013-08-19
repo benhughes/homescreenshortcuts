@@ -12,12 +12,19 @@ define('log', function () {
     return jasmine.createSpy('log');
 });
 
+//mocking the text to get over issues
+define('text', function () {
+    return {load:function(name, req, onLoad, config){onLoad('test');}};//jasmine.createSpy('test');
+});
+
 requirejs.config({
     // Karma serves files from '/base'
     baseUrl: '/base/src/js',
 
     // ask Require.js to load these files (all our tests)
     deps: tests,
+
+
 
     // start test run, once Require.js is done
     callback: window.__karma__.start

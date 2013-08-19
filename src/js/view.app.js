@@ -12,24 +12,30 @@ define([
         className: 'main',
         appModel: null,
         $mainContainer: null,
-        collectionApps: collectionApps,
+        collectionApps: null,
         customSettings: {},
-        templates: {
-            appTemplate: Handlebars.compile(appViewTemplate),
-            singleAppTemplate: Handlebars.compile(singleAppTemplate),
-            shortcutTemplate: Handlebars.compile(shortcutTemplate)
-        },
-        cache: {
-            appList: ''
-        },
+        templates: {},
+        cache: {},
         initialize: function () {
             log(this.logPrefix, 'initializing with id', this.id);
             this.$mainContainer = $('#mainContainer').addClass('loading');
             this.appModel = new modelApp({id: this.id});
+            this.collectionApps = collectionApps
+            this.setUpTemplates();
             this.bindEvents();
             this.appModel.fetch();
             this.render();
-            console.log(this.el)
+        },
+        setUpTemplates: function () {
+            //set up templates
+            this.template.appTemplate = Handlebars.compile(appViewTemplate);
+            this.template.singleAppTemplate = Handlebars.compile(singleAppTemplate);
+            this.template.shortcutTemplate = Handlebars.compile(shortcutTemplate);
+
+            //set up templates cache
+            this.cache.appTemplate = "";
+            this.cache.singleAppTemplate = "";
+            this.cache.shortcutTemplate = "";
         },
         events: {
             'click #singleAppContainer ul.shortCuts a.createShortcut': 'handleAppLinkCLick',

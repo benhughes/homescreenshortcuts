@@ -3,7 +3,7 @@
 
 	require.config({
 		paths: {
-			'text': 'lib/require/plugins/text',
+			'text': 'lib/require/plugins/text'
 		},
         baseUrl: 'js',
 		shim: {
