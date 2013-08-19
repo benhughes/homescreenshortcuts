@@ -28,9 +28,9 @@ define([
         },
         setUpTemplates: function () {
             //set up templates
-            this.template.appTemplate = Handlebars.compile(appViewTemplate);
-            this.template.singleAppTemplate = Handlebars.compile(singleAppTemplate);
-            this.template.shortcutTemplate = Handlebars.compile(shortcutTemplate);
+            this.templates.appTemplate = Handlebars.compile(appViewTemplate);
+            this.templates.singleAppTemplate = Handlebars.compile(singleAppTemplate);
+            this.templates.shortcutTemplate = Handlebars.compile(shortcutTemplate);
 
             //set up templates cache
             this.cache.appTemplate = "";

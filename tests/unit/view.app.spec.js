@@ -5,7 +5,7 @@ require.config({
             "model.app": 'model.apps.mock',
             "text!/templates/appview.main.html": 'text.mock',
             "text!/templates/single.app.html": 'text.mock',
-            "text!/templates/shortcut.html": 'text.mock',
+            "text!/templates/shortcut.html": 'text.mock'
         }
     }
 });
@@ -47,7 +47,7 @@ define(['view.app'], function (viewApp) {
             expect(viewAppFuncs.$mainContainer).toEqual(null);
             expect(viewAppFuncs.collectionApps).toEqual(null);
             expect(viewAppFuncs.events).toEqual(expectedEvents);
-        })
+        });
         describe('initialize', function () {
             var classFunc;
             beforeEach(function () {
@@ -73,6 +73,28 @@ define(['view.app'], function (viewApp) {
                 expect(viewAppFuncs.render).toHaveBeenCalled();
             });
         });
+        describe('setUpTemplates', function () {
+            beforeEach(function () {
+                window.Handlebars = {
+                    compile: jasmine.createSpy('compile')
+                };
+            });
+            it('should call Handlebars.compile for each template the app needs', function () {
+                window.Handlebars.compile.andReturn('test');
+                viewAppFuncs.setUpTemplates();
+                expect(window.Handlebars.compile.callCount).toEqual(3);
+                expect(window.Handlebars.compile.argsForCall[0][0]).toEqual('test');
+                expect(window.Handlebars.compile.argsForCall[1][0]).toEqual('test');
+                expect(window.Handlebars.compile.argsForCall[2][0]).toEqual('test');
+                expect(viewAppFuncs.templates.appTemplate).toEqual('test');
+                expect(viewAppFuncs.templates.singleAppTemplate).toEqual('test');
+                expect(viewAppFuncs.templates.shortcutTemplate).toEqual('test');
+                expect(viewAppFuncs.cache.appTemplate).toEqual('');
+                expect(viewAppFuncs.cache.singleAppTemplate).toEqual('');
+                expect(viewAppFuncs.cache.shortcutTemplate).toEqual('');
+
+            })
+        })
 
     });
 });
