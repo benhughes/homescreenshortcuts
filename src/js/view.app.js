@@ -31,7 +31,6 @@ define([
             this.templates.shortcutTemplate = Handlebars.compile(shortcutTemplate);
 
             //set up templates cache
-            this.cache.appTemplate = "";
             this.cache.singleAppTemplate = "";
             this.cache.shortcutTemplate = "";
         },

@@ -85,14 +85,11 @@ define(['view.app'], function (viewApp) {
             it('should call Handlebars.compile for each template the app needs', function () {
                 window.Handlebars.compile.andReturn('test');
                 viewAppFuncs.setUpTemplates();
-                expect(window.Handlebars.compile.callCount).toEqual(3);
+                expect(window.Handlebars.compile.callCount).toEqual(2);
                 expect(window.Handlebars.compile.argsForCall[0][0]).toEqual('test');
                 expect(window.Handlebars.compile.argsForCall[1][0]).toEqual('test');
-                expect(window.Handlebars.compile.argsForCall[2][0]).toEqual('test');
-                expect(viewAppFuncs.templates.appTemplate).toEqual('test');
                 expect(viewAppFuncs.templates.singleAppTemplate).toEqual('test');
                 expect(viewAppFuncs.templates.shortcutTemplate).toEqual('test');
-                expect(viewAppFuncs.cache.appTemplate).toEqual('');
                 expect(viewAppFuncs.cache.singleAppTemplate).toEqual('');
                 expect(viewAppFuncs.cache.shortcutTemplate).toEqual('');
 
