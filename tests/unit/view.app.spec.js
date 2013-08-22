@@ -10,7 +10,10 @@ require.config({
     }
 });
 
-var collectionAppsMock = jasmine.createSpy('collection.apps.mock').andReturn({fetch: jasmine.createSpy('fetch')});
+var collectionAppsMock = jasmine.createSpy('collection.apps.mock').andReturn({
+    fetch: jasmine.createSpy('fetch'),
+    change: jasmine.createSpy('on')
+});
 var modelAppsMockReturn = {fetch: jasmine.createSpy('fetch')};
 var modelAppsMock = jasmine.createSpy('view.apps.mock').andReturn(modelAppsMockReturn);
 
@@ -93,8 +96,26 @@ define(['view.app'], function (viewApp) {
                 expect(viewAppFuncs.cache.singleAppTemplate).toEqual('');
                 expect(viewAppFuncs.cache.shortcutTemplate).toEqual('');
 
-            })
+            });
+        });
+        describe('bindEvents', function () {
+           it('should call .on of appModel with change and a proxy function', function () {
+               viewAppFuncs.appModel = {
+                   on: jasmine.createSpy('on')
+               };
+               $ = {
+                   proxy: jasmine.createSpy('proxy').andReturn('thisIsATest')
+               }
+               viewAppFuncs.bindEvents();
+               expect(viewAppFuncs.appModel.on).toHaveBeenCalledWith('change', $.proxy());
+
+           });
+
+        });
+        describe('render', function () {
+
         })
+
 
     });
 });

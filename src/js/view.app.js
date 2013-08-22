@@ -2,10 +2,9 @@ define([
     'log',
     'collection.apps',
     'model.app',
-    'text!/templates/appview.main.html',
     'text!/templates/single.app.html',
     'text!/templates/shortcut.html'
-], function (log, collectionApps, modelApp, appViewTemplate, singleAppTemplate, shortcutTemplate) {
+], function (log, collectionApps, modelApp, singleAppTemplate, shortcutTemplate) {
     'use strict';
     return Backbone.View.extend({
         logPrefix: "views.app",
@@ -20,7 +19,7 @@ define([
             log(this.logPrefix, 'initializing with id', this.id);
             this.$mainContainer = $('#mainContainer').addClass('loading');
             this.appModel = new modelApp({id: this.id});
-            this.collectionApps = collectionApps
+            this.collectionApps = collectionApps;
             this.setUpTemplates();
             this.bindEvents();
             this.appModel.fetch();
@@ -28,7 +27,6 @@ define([
         },
         setUpTemplates: function () {
             //set up templates
-            this.templates.appTemplate = Handlebars.compile(appViewTemplate);
             this.templates.singleAppTemplate = Handlebars.compile(singleAppTemplate);
             this.templates.shortcutTemplate = Handlebars.compile(shortcutTemplate);
 
@@ -42,20 +40,16 @@ define([
             'change #singleAppContainer ul.optionsList input': 'handleOptionChange'
         },
         bindEvents: function () {
-            this.appModel.on('change', $.proxy(this.renderSingleApp, this));
+            this.appModel.on('change', $.proxy(this.render, this));
         },
         render: function () {
-            this.el.innerHTML = this.templates.appTemplate({});
-            this.$mainContainer.html(this.el);
-            this.renderSingleApp();
-        },
-        renderSingleApp: function () {
             var data, html;
             data = this.appModel.toJSON();
             html = this.templates.singleAppTemplate(data);
-            if (html !== this.cache.appList) {
-                this.$mainContainer.find('#singleAppContainer').html(html);
-                this.cache.appList = html;
+            if (html !== this.cache.singleAppTemplate) {
+                this.el.innerHTML = html;
+                this.$mainContainer.html(this.el);
+                this.cache.singleAppTemplate = html;
             }
         },
         handleAppLinkCLick: function (e) {
@@ -82,8 +76,7 @@ define([
         },
 
         prepareShortcutData: function (linkData) {
-            var returnedData, shortcutData;
-            console.log(linkData);
+            var returnedData;
             if (linkData.shortcutId === undefined && linkData.appId === undefined) {
                 throw "no shortcut-id or/and app-id in the element";
             }
