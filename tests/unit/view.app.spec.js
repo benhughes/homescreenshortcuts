@@ -110,6 +110,62 @@ define(['view.app'], function (viewApp) {
 
         });
         describe('render', function () {
+            beforeEach(function () {
+                viewAppFuncs.appModel = {
+                    toJSON: jasmine.createSpy('toJSON')
+                };
+                viewAppFuncs.templates = {
+                    singleAppTemplate: jasmine.createSpy('singleAppTemplate')
+                };
+                viewAppFuncs.cache = {
+                    singleAppTemplate: ''
+                };
+                viewAppFuncs.el = {};
+                viewAppFuncs.$mainContainer = {
+                    html: jasmine.createSpy('html')
+                };
+
+            });
+            it('should call appModel.toJSON() and pass it to the template', function () {
+                var testObj = {
+                    'test': 'testing'
+                }
+                viewAppFuncs.appModel.toJSON.andReturn(testObj);
+
+                viewAppFuncs.render();
+
+                expect(viewAppFuncs.appModel.toJSON).toHaveBeenCalled();
+                expect(viewAppFuncs.templates.singleAppTemplate).toHaveBeenCalledWith(testObj);
+
+            });
+            it('should set the inner html of el with the return of the template function and set the cache with the same value', function () {
+                var testHTML = 'this is a test html';
+                viewAppFuncs.templates.singleAppTemplate.andReturn(testHTML);
+
+                viewAppFuncs.render();
+
+                expect(viewAppFuncs.el.innerHTML).toEqual(testHTML);
+                expect(viewAppFuncs.cache.singleAppTemplate).toEqual(testHTML);
+            });
+            it('should set the html of the main container', function () {
+                var testHTML = 'this is a test html';
+                viewAppFuncs.templates.singleAppTemplate.andReturn(testHTML);
+
+                viewAppFuncs.render();
+
+                expect(viewAppFuncs.$mainContainer.html).toHaveBeenCalledWith(viewAppFuncs.el);
+            });
+            it('should not call $mainContainer.html if the template returns the same as the cache', function () {
+                var testHTML = 'this is a test html';
+                viewAppFuncs.cache.singleAppTemplate = testHTML;
+                viewAppFuncs.templates.singleAppTemplate.andReturn(testHTML);
+
+                viewAppFuncs.render();
+
+                expect(viewAppFuncs.$mainContainer.html).not.toHaveBeenCalled();
+
+            })
+
 
         })
 
