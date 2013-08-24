@@ -12,3 +12,8 @@ Handlebars.registerHelper('customBuilder', function (data, i) {
     }
     return html;
 });
+
+Handlebars.registerHelper('encode', function (data, i) {
+    "use strict";
+    return Handlebars.Utils.escapeExpression(encodeURI(data));
+});

@@ -7,7 +7,8 @@ define([
                 "": 'main',
                 "home": 'main',
                 "app-view/:id": 'appView',
-                "custom-shortcut": "customShortcutView"
+                "custom-shortcut": "customShortcutView",
+                "custom-shortcut/*path": "customShortcutViewParams"
             },
             main: function () {
                 log(logPrefix, "Navigating to main");
@@ -28,6 +29,12 @@ define([
                     new ViewCustomShortcut();
                 })
 
+            },
+            customShortcutViewParams: function (params) {
+                log(logPrefix, "navigating to custom shortcut creation view with params", params);
+                require(['view.custom.shortcut', 'utils'], function (ViewCustomShortcut, utils) {
+                    new ViewCustomShortcut({urlParams: utils.convertParamsToObject(params)});
+                })
             },
             initialize: function () {
                 log(logPrefix, "initializing Router");

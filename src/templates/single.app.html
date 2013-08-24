@@ -26,6 +26,7 @@
             {{else}}
             <div class="shortCutActions">
                 <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="testShortcut btn btn-link" href="{{action}}">Try shortcut</a>
+                <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="editShortcut btn btn-link" href="/#custom-shortcut/action={{encode action}}">Edit</a>
                 <a data-shortcut-id="{{id}}" data-app-id="{{../../id}}" class="staticShortcutSubmit createShortcut btn btn-primary" href="{{action}}">Create shortcut</a>
             </div>
             {{/if}}

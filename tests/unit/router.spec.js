@@ -56,6 +56,23 @@ define(['router'], function (router) {
                 expect(testFunc).toHaveBeenCalled();
             })
         });
+        describe('customShortcutView', function () {
+            beforeEach(function () {
+            });
+            it('should call require with view.app and a function', function () {
+                var utilsMock = {convertParamsToObject:jasmine.createSpy()};
+                spyOn(window, 'require');
+                routerFunctions.customShortcutViewParams();
+                var requreFunction = window.require.argsForCall[0][1];
+                var testFunc = jasmine.createSpy('testFunc');
+                expect(window.require).toHaveBeenCalled();
+                expect(window.require.argsForCall[0][0]).toEqual(['view.custom.shortcut', 'utils']);
+                expect(typeof window.require.argsForCall[0][1]).toEqual('function');
+                requreFunction(testFunc, utilsMock);
+                expect(testFunc).toHaveBeenCalled();
+                expect(utilsMock.convertParamsToObject).toHaveBeenCalled();
+            })
+        });
 
     });
 

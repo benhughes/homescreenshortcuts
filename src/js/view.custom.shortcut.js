@@ -24,7 +24,11 @@ define([
             this.render();
         },
         render: function () {
-            this.el.innerHTML = this.templates.customShortcutTemplate({});
+            var pageDefualts = {
+                action: ''
+                },
+                settings = $.extend(pageDefualts, (this.options.urlParams) ? this.options.urlParams : {});
+            this.el.innerHTML = this.templates.customShortcutTemplate(settings);
             this.$mainContainer.html(this.el);
         },
         handleAppLinkCLick: function (e) {
@@ -58,7 +62,6 @@ define([
         handleOptionChange: function (e) {
             var URI = $(e.target).val();
             $(this.el).find('a.testShortcut').attr('href', URI);
-            alert(URI);
         }
     });
 });
