@@ -3,6 +3,7 @@ require.config({
         'view.app': {
             "collection.apps": 'collection.apps.mock',
             "model.app": 'model.apps.mock',
+            "utils": "mock.utils",
             "text!/templates/appview.main.html": 'text.mock',
             "text!/templates/single.app.html": 'text.mock',
             "text!/templates/shortcut.html": 'text.mock'
@@ -16,6 +17,10 @@ var collectionAppsMock = jasmine.createSpy('collection.apps.mock').andReturn({
 });
 var modelAppsMockReturn = {fetch: jasmine.createSpy('fetch')};
 var modelAppsMock = jasmine.createSpy('view.apps.mock').andReturn(modelAppsMockReturn);
+var mockUtils = {
+    navigateTo: jasmine.createSpy('navigateTo')
+};
+
 
 define('collection.apps.mock', function () {
     return collectionAppsMock;
@@ -23,10 +28,12 @@ define('collection.apps.mock', function () {
 define('model.apps.mock', function () {
     return modelAppsMock;
 });
+define('mock.utils', function () {
+    return mockUtils;
+});
 define('text.mock', function () {
     return jasmine.createSpy('text.mock');
 });
-
 var $ = function () {};
 
 define(['view.app'], function (viewApp) {
@@ -163,10 +170,36 @@ define(['view.app'], function (viewApp) {
                 viewAppFuncs.render();
 
                 expect(viewAppFuncs.$mainContainer.html).not.toHaveBeenCalled();
+            });
+        });
+        describe('handleAppLinkCLick', function () {
+            var fakeEvent, mock$Data;
+            beforeEach(function () {
+                fakeEvent = {
+                    target: document.createElement('div'),
+                    preventDefault: jasmine.createSpy('preventDefault')
+                };
+                mock$Data = jasmine.createSpy('mock$Data');
+                $ = jasmine.createSpy('$').andReturn({data: mock$Data});
+                spyOn(viewAppFuncs, 'prepareShortcutData');
+                viewAppFuncs.templates.shortcutTemplate = jasmine.createSpy('shortcutTemplate');
+            })
+            it('should generate the html and change the URL to that html', function () {
+                var fakeHtmlData = {
+                    "someData": "data"
+                };
+                viewAppFuncs.templates.shortcutTemplate.andReturn('some html');
+                mock$Data.andReturn(fakeHtmlData);
+                viewAppFuncs.handleAppLinkCLick(fakeEvent);
+
+                expect($).toHaveBeenCalledWith(fakeEvent.target);
+                expect(mock$Data).toHaveBeenCalled();
+                expect(fakeEvent.preventDefault).toHaveBeenCalled();
+                expect(viewAppFuncs.prepareShortcutData).toHaveBeenCalledWith(fakeHtmlData);
+                expect(mockUtils.navigateTo).toHaveBeenCalledWith("data:text/html;charset=UTF-8," + "some html");
+
 
             })
-
-
         })
 
 

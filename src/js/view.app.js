@@ -2,9 +2,10 @@ define([
     'log',
     'collection.apps',
     'model.app',
+    'utils',
     'text!/templates/single.app.html',
     'text!/templates/shortcut.html'
-], function (log, collectionApps, modelApp, singleAppTemplate, shortcutTemplate) {
+], function (log, collectionApps, modelApp, utils, singleAppTemplate, shortcutTemplate) {
     'use strict';
     return Backbone.View.extend({
         logPrefix: "views.app",
@@ -59,7 +60,7 @@ define([
             log(this.logPrefix, 'detecting click on app link');
             shortcutData = this.prepareShortcutData(linkData);
             html = 'data:text/html;charset=UTF-8,' + this.templates.shortcutTemplate(shortcutData);
-            location.href = html;
+            utils.navigateTo(html);
         },
         generateCustomShortCuts: function (data) {
             var shortcutData = data.shortcut;
