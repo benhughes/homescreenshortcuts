@@ -1,12 +1,7 @@
-define([
-    'log',
-    'collection.apps',
-    'model.app',
-    'utils',
-    'text!/templates/single.app.html',
-    'text!/templates/shortcut.html'
-], function (log, collectionApps, modelApp, utils, singleAppTemplate, shortcutTemplate) {
+define(function (require) {
     'use strict';
+    var utils = require('utils'),
+        log = require('log');
     return Backbone.View.extend({
         logPrefix: "views.app",
         className: 'main',
@@ -17,10 +12,11 @@ define([
         templates: {},
         cache: {},
         initialize: function () {
+            var modelApp = require('model.app');
             log(this.logPrefix, 'initializing with id', this.id);
             this.$mainContainer = $('#mainContainer').addClass('loading');
             this.appModel = new modelApp({id: this.id});
-            this.collectionApps = collectionApps;
+            this.collectionApps = require('collection.apps');
             this.setUpTemplates();
             this.bindEvents();
             this.appModel.fetch();
@@ -28,8 +24,8 @@ define([
         },
         setUpTemplates: function () {
             //set up templates
-            this.templates.singleAppTemplate = Handlebars.compile(singleAppTemplate);
-            this.templates.shortcutTemplate = Handlebars.compile(shortcutTemplate);
+            this.templates.singleAppTemplate = Handlebars.compile(require('text!/templates/single.app.html'));
+            this.templates.shortcutTemplate = Handlebars.compile(require('text!/templates/shortcut.html'));
 
             //set up templates cache
             this.cache.singleAppTemplate = "";
@@ -37,7 +33,7 @@ define([
         },
         events: {
             'click #singleAppContainer ul.shortCuts a.createShortcut': 'handleAppLinkCLick',
-            'change #singleAppContainer ul.optionsList input': 'handleOptionChange'
+            'change #singleAppContainer ul.optionsList input': 'handleOptionChange',
         },
         bindEvents: function () {
             this.appModel.on('change', $.proxy(this.render, this));

@@ -1,4 +1,4 @@
-define([], function () {
+define(function () {
     return {
         isURI: function (URI) {
             return typeof URI == 'string' && URI.match('://') !== null

@@ -8,3 +8,5 @@
 * Unit tests
   * get to 95%+ unit test coverage
   * run tests in safari IOS
+* Build System
+  * use require buildsystem
