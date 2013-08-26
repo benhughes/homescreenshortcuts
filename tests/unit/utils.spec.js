@@ -46,4 +46,3 @@ define(['utils'], function (utils) {
 
 
 });
-"action=comgooglemaps://?saddress=&amp;daddr=6%2520Melgund%2520Road&test=test".match(/&(?!(?:apos|quot|[gl]t|amp);|#)/)
