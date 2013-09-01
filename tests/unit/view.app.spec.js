@@ -47,10 +47,7 @@ define(['view.app'], function (viewApp) {
             expect(typeof viewApp).not.toBe(undefined)
         });
         it('should set up parameters', function () {
-            var expectedEvents =  {
-                'click #singleAppContainer ul.shortCuts a.createShortcut': 'handleAppLinkCLick',
-                'change #singleAppContainer ul.optionsList input': 'handleOptionChange'
-            };
+            var expectedEvents;
             expect(viewAppFuncs.logPrefix).toEqual('views.app');
             expect(viewAppFuncs.className).toEqual('main');
             expect(viewAppFuncs.appModel).toEqual(null);
@@ -107,11 +104,19 @@ define(['view.app'], function (viewApp) {
                viewAppFuncs.appModel = {
                    on: jasmine.createSpy('on')
                };
+               viewAppFuncs.el = {};
+               viewAppFuncs.el.on =  jasmine.createSpy('on').andReturn(viewAppFuncs.el);
+
+
                $ = {
                    proxy: jasmine.createSpy('proxy').andReturn('thisIsATest')
-               }
+               };
                viewAppFuncs.bindEvents();
                expect(viewAppFuncs.appModel.on).toHaveBeenCalledWith('change', $.proxy());
+               expect(viewAppFuncs.el.on).toHaveBeenCalled();
+               expect(viewAppFuncs.el.on.argsForCall[0]).toEqual(['click', 'ul.shortCuts a.createShortcut', 'thisIsATest']);
+               expect(viewAppFuncs.el.on.argsForCall[1]).toEqual(['change', 'ul.optionsList input', 'thisIsATest']);
+
 
            });
 
@@ -127,7 +132,7 @@ define(['view.app'], function (viewApp) {
                 viewAppFuncs.cache = {
                     singleAppTemplate: ''
                 };
-                viewAppFuncs.el = {};
+                viewAppFuncs.el[0] = {};
                 viewAppFuncs.$mainContainer = {
                     html: jasmine.createSpy('html')
                 };
@@ -151,16 +156,8 @@ define(['view.app'], function (viewApp) {
 
                 viewAppFuncs.render();
 
-                expect(viewAppFuncs.el.innerHTML).toEqual(testHTML);
+                expect(viewAppFuncs.el[0].innerHTML).toEqual(testHTML);
                 expect(viewAppFuncs.cache.singleAppTemplate).toEqual(testHTML);
-            });
-            it('should set the html of the main container', function () {
-                var testHTML = 'this is a test html';
-                viewAppFuncs.templates.singleAppTemplate.andReturn(testHTML);
-
-                viewAppFuncs.render();
-
-                expect(viewAppFuncs.$mainContainer.html).toHaveBeenCalledWith(viewAppFuncs.el);
             });
             it('should not call $mainContainer.html if the template returns the same as the cache', function () {
                 var testHTML = 'this is a test html';

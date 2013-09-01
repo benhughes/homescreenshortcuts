@@ -14,13 +14,13 @@ define(function (require) {
         initialize: function () {
             var modelApp = require('model.app');
             log(this.logPrefix, 'initializing with id', this.id);
-            this.$mainContainer = $('#mainContainer').addClass('loading');
+            this.el = $('#mainContainer').addClass('loading');
             this.appModel = new modelApp({id: this.id});
             this.collectionApps = require('collection.apps');
             this.setUpTemplates();
-            this.bindEvents();
             this.appModel.fetch();
             this.render();
+            this.bindEvents();
         },
         setUpTemplates: function () {
             //set up templates
@@ -31,20 +31,18 @@ define(function (require) {
             this.cache.singleAppTemplate = "";
             this.cache.shortcutTemplate = "";
         },
-        events: {
-            'click #singleAppContainer ul.shortCuts a.createShortcut': 'handleAppLinkCLick',
-            'change #singleAppContainer ul.optionsList input': 'handleOptionChange',
-        },
         bindEvents: function () {
             this.appModel.on('change', $.proxy(this.render, this));
+            this.el
+                .on('click', 'ul.shortCuts a.createShortcut', $.proxy(this.handleAppLinkCLick, this))
+                .on('change', 'ul.optionsList input', $.proxy(this.handleOptionChange, this));
         },
         render: function () {
             var data, html;
             data = this.appModel.toJSON();
             html = this.templates.singleAppTemplate(data);
             if (html !== this.cache.singleAppTemplate) {
-                this.el.innerHTML = html;
-                this.$mainContainer.html(this.el);
+                this.el[0].innerHTML = html;
                 this.cache.singleAppTemplate = html;
             }
         },
@@ -83,6 +81,7 @@ define(function (require) {
             return returnedData;
         },
         handleOptionChange: function (e) {
+            log(this.logPrefix, 'change detected');
             var $thisEl = $(e.target),
                 optionId = $thisEl.data('customid'),
                 shortcutID = $thisEl.closest('li.shortcut').data('shortcut-id');
