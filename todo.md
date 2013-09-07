@@ -10,3 +10,6 @@
   * run tests in safari IOS
 * Build System
   * use require buildsystem
+* Shortcut creation page
+    * Style instructions
+    * Include name in instructions
