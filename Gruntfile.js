@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         nextVersion: function () {
-            var ver = this.pkg.version.split('.');
+            var ver = grunt.config.get(['pkg']).version.split('.');
 
             ver[2] = parseInt(ver[2], 10) + 1;
             return ver.join('.');
@@ -96,17 +96,15 @@ module.exports = function(grunt) {
         require('./build/data-build/data-build.js')
     });
 
-    grunt.registerTask('build-html', function() {
+    grunt.registerTask('create-html', function() {
         buildHelpers.buildHtml('build-output/index.html')
     })
 
     grunt.registerTask('addVersionNumber', function () {
         var fs = require('fs');
         var html = fs.readFileSync('build-output/index.html');
-        grunt.log.writeln(grunt.config.process('nextVersion'));
-        grunt.log.writeln(html);
-
-        html = html.replace('<!--version:local-->', '<!--version:' + grunt.config.process('nextVersion()') + '-->');
+        html = '' + html
+        html = html.replace('<!--version:local-->', '<!--version:' + grunt.config.get(['nextVersion'])() + '-->');
         fs.writeFileSync('build-output/index.html', html);
     });
 
@@ -120,6 +118,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('build-js', ['requirejs', 'uglify:libs']);
+    grunt.registerTask('build-html', ['create-html', 'addVersionNumber']);
 
     grunt.registerTask('build', ['compliment', 'karma', 'shell:cleanBuildOutput', 'build-api', 'copy:main', 'build-js', 'build-html', 'shell:removeBuildFiles']);
     grunt.registerTask('release', ['build', 'shell:commitChanges'])
