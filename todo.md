@@ -10,6 +10,5 @@
   * run tests in safari IOS
 * Build System
   * use require buildsystem
-* Shortcut creation page
-    * Style instructions
-    * Include name in instructions
+* Set up build system
+  * use grunt to build the site
