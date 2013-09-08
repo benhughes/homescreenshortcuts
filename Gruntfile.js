@@ -60,6 +60,12 @@ module.exports = function(grunt) {
                     'mkdir build-output'].join(';')
 
             },
+            removeBuildFiles: {
+                command: [
+                    'rm -r build-output/js',
+                    'rm -r build-output/templates'
+                ].join(';')
+            },
             commitChanges: {
                 options: {
                     stdout: true
@@ -115,6 +121,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build-js', ['requirejs', 'uglify:libs']);
 
-    grunt.registerTask('build', ['compliment', 'karma', 'shell:cleanBuildOutput', 'build-api', 'copy:main', 'build-js', 'build-html']);
+    grunt.registerTask('build', ['compliment', 'karma', 'shell:cleanBuildOutput', 'build-api', 'copy:main', 'build-js', 'build-html', 'shell:removeBuildFiles']);
     grunt.registerTask('release', ['build', 'shell:commitChanges'])
 };
