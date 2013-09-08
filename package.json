@@ -1,6 +1,6 @@
 {
   "name": "homescreenshortcuts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "homescreenshortcuts ===================",
   "main": "index.js",
   "directories": {
@@ -19,7 +19,8 @@
     "grunt-shell": "~0.3.1",
     "grunt-contrib-requirejs": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
-    "cheerio": "~0.12.2"
+    "cheerio": "~0.12.2",
+    "grunt-contrib-uglify": "~0.2.4"
   },
   "scripts": {
     "test": "node_modules/karma/bin/karma start tests/unit/unit.conf.js"

@@ -41,10 +41,11 @@ module.exports = function(grunt) {
                 }
             }
         },
-        concat: {
+        uglify: {
             libs: {
-                src: buildHelpers.getLibList(path.resolve(__dirname, 'src/index.html')),
-                dest: 'build-output/lib.js'
+                files: {
+                    'build-output/lib.js': buildHelpers.getLibList(path.resolve(__dirname, 'src/index.html'))
+                }
             }
         },
         shell: {
@@ -110,8 +111,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('build-js', ['requirejs', 'concat:libs']);
+    grunt.registerTask('build-js', ['requirejs', 'uglify:libs']);
 
     grunt.registerTask('build', ['compliment', 'karma', 'shell:cleanBuildOutput', 'build-api', 'copy:main', 'build-js', 'build-html']);
     grunt.registerTask('release', ['build', 'shell:commitChanges'])
