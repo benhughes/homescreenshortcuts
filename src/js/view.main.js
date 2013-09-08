@@ -1,9 +1,9 @@
 define([
     'log',
     'collection.apps',
-    'text!/templates/main.html',
-    'text!/templates/main.apps.html',
-    'text!/templates/shortcut.html'
+    'text!../templates/main.html',
+    'text!../templates/main.apps.html',
+    'text!../templates/shortcut.html'
 ], function (log, collectionApps, mainTemplate, appsTemplate, shortcutTemplate) {
     return Backbone.View.extend({
         logPrefix: "views.main",

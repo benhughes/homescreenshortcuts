@@ -1,8 +1,8 @@
 define([
     'log',
     'utils',
-    'text!/templates/customShortcutView.html',
-    'text!/templates/shortcut.html'
+    'text!../templates/customShortcutView.html',
+    'text!../templates/shortcut.html'
 ], function (log, utils, customShortcutTemplate, shortcutTemplate) {
     'use strict';
 

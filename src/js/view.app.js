@@ -24,8 +24,8 @@ define(function (require) {
         },
         setUpTemplates: function () {
             //set up templates
-            this.templates.singleAppTemplate = Handlebars.compile(require('text!/templates/single.app.html'));
-            this.templates.shortcutTemplate = Handlebars.compile(require('text!/templates/shortcut.html'));
+            this.templates.singleAppTemplate = Handlebars.compile(require('text!../templates/single.app.html'));
+            this.templates.shortcutTemplate = Handlebars.compile(require('text!../templates/shortcut.html'));
 
             //set up templates cache
             this.cache.singleAppTemplate = "";
