@@ -12,3 +12,5 @@
   * use require buildsystem
 * Set up build system
   * use grunt to build the site
+* App page
+  * Warn users before trying shortcut and leaving page
