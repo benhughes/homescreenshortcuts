@@ -11,6 +11,6 @@
 * Build System
   * use require buildsystem
 * Set up build system
-  * use grunt to build the site
+  * add automatic version numbers to package.json
 * App page
   * Warn users before trying shortcut and leaving page
