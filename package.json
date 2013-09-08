@@ -6,13 +6,17 @@
   "directories": {
     "test": "tests"
   },
-   "devDependencies": {
-        "karma": "~0.10",
-        "karma-requirejs": "*",
-        "karma-jasmine": "*",
-        "karma-safari-launcher": "*",
-        "karma-junit-reporter": "*",
-        "karma-coverage": "*"
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "karma": "~0.10",
+    "karma-requirejs": "*",
+    "karma-jasmine": "*",
+    "karma-safari-launcher": "*",
+    "karma-junit-reporter": "*",
+    "karma-coverage": "*",
+    "grunt-karma": "~0.6.2",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-shell": "~0.3.1"
   },
   "scripts": {
     "test": "node_modules/karma/bin/karma start tests/unit/unit.conf.js"
