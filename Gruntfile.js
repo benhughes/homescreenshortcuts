@@ -1,3 +1,8 @@
+var path = require('path'),
+    buildHelpers = require('./build/build-helpers/build-helpers');
+
+
+
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -22,7 +27,24 @@ module.exports = function(grunt) {
             },
             toRepo: {
                 src: 'build-output/**',
-                dest: 'homescreenshortcuts-release/',
+                dest: 'homescreenshortcuts-release/'
+            }
+        },
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: "build-output/js/",
+                    name: 'main',
+                    findNestedDependencies: true,
+                    mainConfigFile: "build-output/js/main.js",
+                    out: "build-output/r-main.js"
+                }
+            }
+        },
+        concat: {
+            libs: {
+                src: buildHelpers.getLibList(path.resolve(__dirname, 'src/index.html')),
+                dest: 'build-output/lib.js'
             }
         },
         shell: {
@@ -31,6 +53,11 @@ module.exports = function(grunt) {
                     stdout: true
                 },
                 command: 'echo <%= nextVersion() %>'
+            },
+            cleanBuildOutput: {
+                command: ['rm -r build-output',
+                    'mkdir build-output'].join(';')
+
             },
             commitChanges: {
                 options: {
@@ -62,6 +89,10 @@ module.exports = function(grunt) {
         require('./build/data-build/data-build.js')
     });
 
+    grunt.registerTask('build-html', function() {
+        buildHelpers.buildHtml('build-output/index.html')
+    })
+
     grunt.registerTask('addVersionNumber', function () {
         var fs = require('fs');
         var html = fs.readFileSync('build-output/index.html');
@@ -72,10 +103,16 @@ module.exports = function(grunt) {
         fs.writeFileSync('build-output/index.html', html);
     });
 
+
+
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
-    grunt.registerTask('build', ['compliment', 'karma', 'build-api', 'copy:main']);
+    grunt.registerTask('build-js', ['requirejs', 'concat:libs']);
+
+    grunt.registerTask('build', ['compliment', 'karma', 'shell:cleanBuildOutput', 'build-api', 'copy:main', 'build-js', 'build-html']);
     grunt.registerTask('release', ['build', 'shell:commitChanges'])
 };
