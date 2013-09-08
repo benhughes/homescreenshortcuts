@@ -11,6 +11,7 @@ lib-cov
 .idea/
 data/
 data_bk/
+build-output/
 
 pids
 logs
