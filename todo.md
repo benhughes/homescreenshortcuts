@@ -10,7 +10,9 @@
   * run tests in safari IOS
 * Build System
   * use require buildsystem
+  * minify shortcut template
 * Set up build system
   * add automatic version numbers to package.json
 * App page
   * Warn users before trying shortcut and leaving page
+ 
