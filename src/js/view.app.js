@@ -12,10 +12,10 @@ define(function (require) {
         templates: {},
         cache: {},
         initialize: function () {
-            var modelApp = require('model.app');
+            var ModelApp = require('model.app');
             log(this.logPrefix, 'initializing with id', this.id);
             this.el = $('#mainContainer').addClass('loading');
-            this.appModel = new modelApp({id: this.id});
+            this.appModel = new ModelApp({id: this.id});
             this.collectionApps = require('collection.apps');
             this.setUpTemplates();
             this.appModel.fetch();
@@ -57,12 +57,11 @@ define(function (require) {
             utils.navigateTo(html);
         },
         generateCustomShortCuts: function (data) {
-            var shortcutData = data.shortcut;
-            console.log(data);
+            var shortcutData = data.shortcut,
+                template, customSettings;
             if (shortcutData.action.match('{{(.*?)}}')) {
-                var template = Handlebars.compile(shortcutData.action),
-                    customSettings = this.customSettings[shortcutData.id] || {};
-
+                template = Handlebars.compile(shortcutData.action);
+                customSettings = this.customSettings[shortcutData.id] || {};
                 shortcutData.action = template(customSettings);
             }
             return data;

@@ -12,8 +12,8 @@ define([
             },
             main: function () {
                 log(logPrefix, "Navigating to main");
-                require(['view.main'], function (viewMain) {
-                    new viewMain();
+                require(['view.main'], function (ViewMain) {
+                    new ViewMain();
                 });
             },
             appView: function (id) {

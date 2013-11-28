@@ -54,8 +54,6 @@ define([
             log(this.logPrefix, 'detecting click on app link');
             shortcutData = this.prepareShortcutData(linkData);
             html = 'data:text/html;charset=UTF-8,' + this.templates.shortcutTemplate(shortcutData);
-            console.log(shortcutData);
-            console.log(html);
             location.href = html;
         },
         prepareShortcutData: function (linkData) {

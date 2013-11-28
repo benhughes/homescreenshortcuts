@@ -24,10 +24,10 @@ define([
             this.render();
         },
         render: function () {
-            var pageDefualts = {
-                action: ''
+            var pageDefaults = {
+                    action: ''
                 },
-                settings = $.extend(pageDefualts, (this.options.urlParams) ? this.options.urlParams : {});
+                settings = $.extend(pageDefaults, (this.options.urlParams) ? this.options.urlParams : {});
             this.el.innerHTML = this.templates.customShortcutTemplate(settings);
             this.$mainContainer.html(this.el);
         },
