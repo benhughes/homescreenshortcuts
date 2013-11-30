@@ -2,7 +2,7 @@ body {
     padding-top: 0px;
 }
 
-h3 {
+h2, h3 {
     margin: 0 20px;
 }
 
@@ -111,6 +111,7 @@ ul.list.shortCuts ul.optionsList li span.help{
     color: #E7E7E7;
     text-shadow: 2px 2px 1px #000;
     left: 20px;
+    font-weight: normal;
 }
 
 .header h3 {
@@ -138,8 +139,23 @@ ul.list.shortCuts ul.optionsList li span.help{
     opacity: 0.3;
 }
 
+.header.home {
+    background-position: top center;
 
+}
 
+.header.home h3{
+    position: absolute;
+    right: 5px;
+    text-shadow: 2px 2px 5px #fff;
+    bottom: 55px;
+    color: rgb(51, 49, 49);
+    font-size: 11px;
+}
+
+.header.home .headerBg{
+    -webkit-filter: blur(2px) grayscale(40%);
+}
 
 
 
