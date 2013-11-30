@@ -1,3 +1,12 @@
+*Before Release*
+* All apps page
+* Redesign
+* Logo
+* Name
+* >20 apps
+* updated app icons
+*
+
 *Todo*
 * Custom shortcut creation
   * add default custom image

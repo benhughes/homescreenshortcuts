@@ -1,5 +1,10 @@
 body {
-    padding-top: 70px;
+    padding-top: 0px;
+}
+
+.content {
+    background-color: #fff;
+    padding: 20px 0;
 }
 
 
@@ -65,12 +70,32 @@ ul.list.shortCuts ul.optionsList li span.help{
 
 
 .header {
-    background-color: rgb(244, 244, 244);
     padding: 10px 0px;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.header .headerBg {
+    width: 120%;
+    height: 250px;
+    position: fixed;
+    left: -20px;
+    top: 0;
+    background-size: cover;
+    background-position-y: 50%;
+    -webkit-filter: blur(12px) grayscale(40%);
+    z-index: -1;
+
 }
 .header h1{
     margin-bottom: 5px;
-    display: inline;
+    position: absolute;
+    bottom: 5px;
+    z-index: 1;
+    color: #E7E7E7;
+    text-shadow: 2px 2px 1px #000;
+    left: 20px;
 }
 
 .header h3 {
@@ -79,9 +104,22 @@ ul.list.shortCuts ul.optionsList li span.help{
 }
 
 .header img.appIcon.mediumSize {
-    height: 120px;
-    border-radius: 20px;
-    margin-left: 20px;
+    height: 50px;
+    border-radius: 25px;
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+    z-index: 1;
+}
+
+.header .fade-overlay {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 70px;
+    background-color: black;
+    opacity: 0.3;
 }
 
 
