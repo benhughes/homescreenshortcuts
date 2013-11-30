@@ -48,6 +48,12 @@ module.exports = function(grunt) {
                 }
             }
         },
+        jshint: {
+            options: {
+                jshintrc: true
+            },
+            files: ['src/js/*.js']
+        },
         shell: {
             outVersion: {
                 options: {
@@ -116,6 +122,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('build-js', ['requirejs', 'uglify:libs']);
     grunt.registerTask('build-html', ['create-html', 'addVersionNumber']);

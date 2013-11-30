@@ -27,14 +27,14 @@ define([
                 log(logPrefix, "navigating to custom shortcut creation view");
                 require(['view.custom.shortcut'], function (ViewCustomShortcut) {
                     new ViewCustomShortcut();
-                })
+                });
 
             },
             customShortcutViewParams: function (params) {
                 log(logPrefix, "navigating to custom shortcut creation view with params", params);
                 require(['view.custom.shortcut', 'utils'], function (ViewCustomShortcut, utils) {
                     new ViewCustomShortcut({urlParams: utils.convertParamsToObject(params)});
-                })
+                });
             },
             initialize: function () {
                 log(logPrefix, "initializing Router");

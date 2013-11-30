@@ -15,8 +15,10 @@ define(function (require) {
             var ModelApp = require('model.app');
             log(this.logPrefix, 'initializing with id', this.id);
             this.el = $('#mainContainer').addClass('loading');
+
             this.appModel = new ModelApp({id: this.id});
             this.collectionApps = require('collection.apps');
+
             this.setUpTemplates();
             this.appModel.fetch();
             this.render();
@@ -40,18 +42,23 @@ define(function (require) {
         render: function () {
             var data, html;
             data = this.appModel.toJSON();
+
             html = this.templates.singleAppTemplate(data);
+
             if (html !== this.cache.singleAppTemplate) {
                 this.el[0].innerHTML = html;
                 this.cache.singleAppTemplate = html;
             }
         },
         handleAppLinkCLick: function (e) {
-            log(this.logPrefix, 'handleAppLinkCLick');
             var linkData = $(e.target).data(),
                 shortcutData, html;
+
             e.preventDefault();
-            log(this.logPrefix, 'detecting click on app link');
+
+            log(this.logPrefix, 'handleAppLinkCLick');
+            log(this.logPrefix, 'detecting click on app link', linkData);
+
             shortcutData = this.prepareShortcutData(linkData);
             html = 'data:text/html;charset=UTF-8,' + this.templates.shortcutTemplate(shortcutData);
             utils.navigateTo(html);

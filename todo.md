@@ -9,7 +9,6 @@
   * get to 95%+ unit test coverage
   * run tests in safari IOS
 * Build System
-  * use require buildsystem
   * minify shortcut template
 * Set up build system
   * add automatic version numbers to package.json

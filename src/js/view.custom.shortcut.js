@@ -51,12 +51,12 @@ define([
         generateShortcutData: function (URI) {
             return {
                 imageURL: location.origin + this.defaultImageShortcutUrl,
-                shortcut:{
+                shortcut: {
                     "name": "custom",
                     "action": URI
                 }
 
-            }
+            };
 
         },
         handleOptionChange: function (e) {
