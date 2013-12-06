@@ -3,7 +3,7 @@ var path = require('path'),
 
 
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         nextVersion: function () {
@@ -94,22 +94,22 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('compliment', function() {
+    grunt.registerTask('compliment', function () {
         grunt.log.writeln('You are so awesome!');
     });
 
     grunt.registerTask('build-api', function () {
-        require('./build/data-build/data-build.js')
+        require('./build/data-build/data-build.js');
     });
 
-    grunt.registerTask('create-html', function() {
-        buildHelpers.buildHtml('build-output/index.html')
-    })
+    grunt.registerTask('create-html', function () {
+        buildHelpers.buildHtml('build-output/index.html');
+    });
 
     grunt.registerTask('addVersionNumber', function () {
-        var fs = require('fs');
-        var html = fs.readFileSync('build-output/index.html');
-        html = '' + html
+        var fs = require('fs'),
+            html = fs.readFileSync('build-output/index.html');
+        html = '' + html;
         html = html.replace('<!--version:local-->', '<!--version:' + grunt.config.get(['nextVersion'])() + '-->');
         fs.writeFileSync('build-output/index.html', html);
     });
@@ -128,5 +128,5 @@ module.exports = function(grunt) {
     grunt.registerTask('build-html', ['create-html', 'addVersionNumber']);
 
     grunt.registerTask('build', ['compliment', 'karma', 'shell:cleanBuildOutput', 'build-api', 'copy:main', 'build-js', 'build-html', 'shell:removeBuildFiles']);
-    grunt.registerTask('release', ['build', 'shell:commitChanges'])
+    grunt.registerTask('release', ['build', 'shell:commitChanges']);
 };

@@ -1,6 +1,9 @@
-<h2>Supported Apps</h2>
-<ul class="appList list-unstyled">
-    {{#each apps}}
-    <li><a href="#app-view/{{id}}"><img src="{{imageURL}}" /><span class="appName">{{name}}</span></a></li>
-    {{/each}}
-</ul>
+<div class="popular-apps">
+    <h2>Popular Apps</h2>
+    <ul class="appList list-unstyled">
+        {{#each apps}}
+        <li><a href="#app-view/{{id}}"><img src="{{imageURL}}" /><span class="appName">{{name}}</span></a></li>
+        {{/each}}
+    </ul>
+    <a class="allApps btn btn-link btn-lg" href="#apps">All apps</a>
+</div>

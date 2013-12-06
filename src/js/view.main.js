@@ -1,7 +1,7 @@
 define([
     'log',
     'collection.apps',
-    'text!../templates/main.html',
+    'text!../templates/home-main.html',
     'text!../templates/main.apps.html',
     'text!../templates/shortcut.html'
 ], function (log, collectionApps, mainTemplate, appsTemplate, shortcutTemplate) {
@@ -44,7 +44,7 @@ define([
 
 
             if (html !== this.cache.appList) {
-                $('#appsList').html(html);
+                $('#popularAppsList').html(html);
             }
         },
         handleAppLinkCLick: function (e) {

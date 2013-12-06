@@ -1,8 +1,10 @@
 body {
     padding-top: 0px;
+    font-family: 'Open Sans Condensed', sans-serif;
 }
 
-h2, h3 {
+h1, h2, h3 {
+    font-family: 'Open Sans Condensed', sans-serif;
     margin: 0 20px;
 }
 
@@ -33,10 +35,13 @@ ul.list {
     list-style: none;
     padding: 0;
     margin: 0;
+    border-top: 1px solid silver;
 }
 ul.list>li {
     padding:10px 20px;
+    border-bottom: 1px solid silver;
 }
+
 ul.list>li:nth-child(odd) {
     background-color: rgb(252, 252, 252);
 }
@@ -44,6 +49,12 @@ ul.list>li:nth-child(odd) {
 ul.list.shortCuts {
 
 }
+
+ul.shortCuts li.shortcut .shortcutDescription {
+    margin: 10px 0px;
+    display: block;
+}
+
 ul.list.shortCuts .appName {
     font-weight: bold;
     font-size: 150%;
@@ -110,7 +121,7 @@ ul.list.shortCuts ul.optionsList li span.help{
     z-index: 1;
     color: #E7E7E7;
     text-shadow: 2px 2px 1px #000;
-    left: 20px;
+    left: 0px;
     font-weight: normal;
 }
 
@@ -153,9 +164,35 @@ ul.list.shortCuts ul.optionsList li span.help{
     font-size: 11px;
 }
 
-.header.home .headerBg{
-    -webkit-filter: blur(2px) grayscale(40%);
+.header.home .headerBg {
+    -webkit-filter: blur(0);
+    width: 100%;
+    background-size: 90%;
+    background-position: center 70px;
+    background-repeat: no-repeat;
+    background-color: silver;
 }
 
+.homeMessage {
+    margin: 10px 20px;
+    font-size: 20px;
+}
 
+.homeMessage span {
+    color: #7A7878;
+}
 
+.content h2, .content h3 {
+    margin: 10px 20px;
+
+}
+
+.shortCutActions .btn {
+    font-size: 12px;
+}
+
+#popularAppsList .allApps {
+    clear: both;
+    display: block;
+    text-align: right;
+}
