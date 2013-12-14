@@ -63,12 +63,12 @@ define(function (require) {
             html = 'data:text/html;charset=UTF-8,' + this.templates.shortcutTemplate(shortcutData);
             utils.navigateTo(html);
         },
-        generateCustomShortCuts: function (shortcutAction, id) {
-            var template, customSettings;
+        generateCustomShortCuts: function (shortcutAction, shortcutData) {
+            var template;
             if (shortcutAction.match('{{(.*?)}}')) {
+                shortcutData = shortcutData || {};
                 template = Handlebars.compile(shortcutAction);
-                customSettings = this.customSettings[id] || {};
-                shortcutAction = template(customSettings);
+                shortcutAction = template(shortcutData);
             }
             return shortcutAction;
 
@@ -82,7 +82,8 @@ define(function (require) {
             returnedData = this.collectionApps.get(linkData.appId).toJSON();
             returnedData.shortcut = returnedData.shortcuts[linkData.shortcutId];
             returnedData.imageURL = location.origin + returnedData.imageURL;
-            returnedData.shortcut.action = this.generateCustomShortCuts(returnedData.shortcut.action, returnedData.shortcut.id);
+            returnedData.shortcut.action = this.generateCustomShortCuts(returnedData.shortcut.action,
+                this.customSettings[returnedData.shortcut.id]);
             return returnedData;
         },
         handleOptionChange: function (e) {

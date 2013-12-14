@@ -20,6 +20,7 @@ define('text', function () {
 requirejs.config({
     // Karma serves files from '/base'
     baseUrl: '/base/src/js',
+    urlArgs: "bust=" + (new Date()).getTime(),
 
     // ask Require.js to load these files (all our tests)
     deps: tests,

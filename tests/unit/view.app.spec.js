@@ -222,21 +222,19 @@ define(function (require) {
             });
             it('should call Handlebars and the template function and return the result of the template function if action matches {{(.*?)}}', function () {
                 var action = 'test:{{link}}',
-                    shortcutId = 'test',
-                    returnedAction = '';
-                viewAppFuncs.customSettings = {};
-                viewAppFuncs.customSettings[shortcutId] = {"link": "yeah"};
-                returnedAction = viewAppFuncs.generateCustomShortCuts(action, shortcutId);
+                    shortcutData = {"link": "yeah"},
+                    returnedAction;
+                returnedAction = viewAppFuncs.generateCustomShortCuts(action, shortcutData);
                 expect(Handlebars.compile).toHaveBeenCalledWith(action);
-                expect(compileFake).toHaveBeenCalledWith({"link": "yeah"});
+                expect(compileFake).toHaveBeenCalledWith(shortcutData);
                 expect(returnedAction).toEqual(handlebarsReturn);
             });
             it('should call Handlebars and the template function with empty object if action matches {{(.*?)}} and there are no customSettings', function () {
                 var action = 'test:{{link}}',
-                    shortcutId = 'test',
-                    returnedAction = '';
+                    shortcutData,
+                    returnedAction;
                 viewAppFuncs.customSettings = {};
-                returnedAction = viewAppFuncs.generateCustomShortCuts(action, shortcutId);
+                returnedAction = viewAppFuncs.generateCustomShortCuts(action, shortcutData);
                 expect(Handlebars.compile).toHaveBeenCalledWith(action);
                 expect(compileFake).toHaveBeenCalledWith({});
                 expect(returnedAction).toEqual(handlebarsReturn);
