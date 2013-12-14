@@ -107,6 +107,51 @@
             },
             "id" : "drafts",
             "appstore" : "https://itunes.apple.com/us/app/drafts/id502385074?mt=8"
+        },
+        "spotify" : {
+            "protocol" : "spotify",
+            "name" : "Spotify",
+            "imageURL" : "/img/app-icons/spotify-175x175.jpg",
+            "shortcuts" : {
+                "playlist" : {
+                    "name" : "Open Playlist",
+                    "description" : "Open Spotify to your favourite playlist",
+                    "id" : "playlist",
+                    "action" : "spotify:user:{{username}}:playlist:{{playlistId}}",
+                    "custom" : {
+                        "username" : {
+                            "type" : "text",
+                            "customid" : "username",
+                            "label" : "Username",
+                            "help" : "The username of the person who owns the playlist"
+                        },
+                        "playlistId" : {
+                            "type" : "text",
+                            "customid" : "playlistId",
+                            "label" : "Playlist Id",
+                            "help" : "The Id of the playlist, you can get this from the share link of a playlist (i.e. the id of http://open.spotify.com/user/benhuggy/playlist/7zn31Ki6T8VX5dadfoJEg7 is 7zn31Ki6T8VX5dadfoJEg7)"
+                        }
+
+                    }
+                },
+                "starred" : {
+                    "name" : "Open Starred Playlist",
+                    "description" : "Open your starred playlist on Spotify",
+                    "id" : "starred",
+                    "action" : "spotify:user:{{username}}:starred",
+                    "custom" : {
+                        "username" : {
+                            "type" : "text",
+                            "customid" : "username",
+                            "label" : "Username",
+                            "help" : "Your username"
+                        }
+                    }
+                }
+
+            },
+            "id" : "spotify",
+            "appstore" : "https://itunes.apple.com/us/app/drafts/id502385074?mt=8"
         }
     }
 }
