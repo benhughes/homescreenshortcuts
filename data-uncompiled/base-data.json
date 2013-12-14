@@ -1,5 +1,28 @@
 {
     "apps" : {
+        "phone" : {
+            "protocol" : "tel",
+            "name" : "Phone",
+            "imageURL" : "/img/app-icons/phone-175x175.jpg",
+            "shortcuts" : {
+                "call" : {
+                    "name" : "Call a number",
+                    "description" : "Call any number with one touch",
+                    "id" : "call",
+                    "action" : "tel:{{phonenumber}}",
+                    "custom" : {
+                        "phonenumber" : {
+                            "type" : "text",
+                            "customid" : "phonenumber",
+                            "label" : "Number",
+                            "help" : "The number of your friend. (don't worry, we never store numbers)"
+                        }
+                    }
+                }
+            },
+            "id" : "phone",
+            "appstore" : "https://itunes.apple.com/us/app/drafts/id502385074?mt=8"
+        },
         "instagram" : {
             "protocol" : "instagram",
             "name" : "Instagram",
@@ -82,12 +105,6 @@
                             "help" : "Enter a full address, for best results include your postcode"
                         }
                     }
-                },
-                "home" : {
-                    "name" : "Home Directions",
-                    "description" : "Get me home",
-                    "id" : "home",
-                    "action" : "comgooglemaps://?saddress=&daddr=6%20Melgund%20Road%2C%20N5%201PT&directionsmode=transit"
                 }
             },
             "itunes" : "https://itunes.apple.com/gb/app/google-maps/id585027354?mt=8",
