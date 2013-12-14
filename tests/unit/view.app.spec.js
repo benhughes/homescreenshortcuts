@@ -36,15 +36,16 @@ define('text.mock', function () {
 });
 var $ = function () {};
 
-define(['view.app'], function (viewApp) {
-    var viewAppFuncs;
+define(function (require) {
+    var viewAppFuncs, viewApp;
 
     describe('view.app', function () {
         beforeEach(function () {
+            viewApp = require('view.app');
             viewAppFuncs = viewApp.prototype;
         });
         it('exists', function () {
-            expect(typeof viewApp).not.toBe(undefined)
+            expect(typeof viewApp).not.toBe(undefined);
         });
         it('should set up parameters', function () {
             var expectedEvents;
@@ -72,7 +73,7 @@ define(['view.app'], function (viewApp) {
                 viewAppFuncs.initialize();
                 expect(window.$).toHaveBeenCalledWith('#mainContainer');
                 expect(classFunc.addClass).toHaveBeenCalledWith('loading');
-                expect(modelAppsMock).toHaveBeenCalledWith({id:'test'});
+                expect(modelAppsMock).toHaveBeenCalledWith({id: 'test'});
                 expect(viewAppFuncs.collectionApps).toEqual(collectionAppsMock);
                 expect(viewAppFuncs.setUpTemplates).toHaveBeenCalled();
                 expect(viewAppFuncs.bindEvents).toHaveBeenCalled();
@@ -100,25 +101,23 @@ define(['view.app'], function (viewApp) {
             });
         });
         describe('bindEvents', function () {
-           it('should call .on of appModel with change and a proxy function', function () {
-               viewAppFuncs.appModel = {
-                   on: jasmine.createSpy('on')
-               };
-               viewAppFuncs.el = {};
-               viewAppFuncs.el.on =  jasmine.createSpy('on').andReturn(viewAppFuncs.el);
+            it('should call .on of appModel with change and a proxy function', function () {
+                viewAppFuncs.appModel = {
+                    on: jasmine.createSpy('on')
+                };
+                viewAppFuncs.el = {};
+                viewAppFuncs.el.on =  jasmine.createSpy('on').andReturn(viewAppFuncs.el);
 
 
-               $ = {
-                   proxy: jasmine.createSpy('proxy').andReturn('thisIsATest')
-               };
-               viewAppFuncs.bindEvents();
-               expect(viewAppFuncs.appModel.on).toHaveBeenCalledWith('change', $.proxy());
-               expect(viewAppFuncs.el.on).toHaveBeenCalled();
-               expect(viewAppFuncs.el.on.argsForCall[0]).toEqual(['click', 'ul.shortCuts a.createShortcut', 'thisIsATest']);
-               expect(viewAppFuncs.el.on.argsForCall[1]).toEqual(['change', 'ul.optionsList input', 'thisIsATest']);
-
-
-           });
+                $ = {
+                    proxy: jasmine.createSpy('proxy').andReturn('thisIsATest')
+                };
+                viewAppFuncs.bindEvents();
+                expect(viewAppFuncs.appModel.on).toHaveBeenCalledWith('change', $.proxy());
+                expect(viewAppFuncs.el.on).toHaveBeenCalled();
+                expect(viewAppFuncs.el.on.argsForCall[0]).toEqual(['click', 'ul.shortCuts a.createShortcut', 'thisIsATest']);
+                expect(viewAppFuncs.el.on.argsForCall[1]).toEqual(['change', 'ul.optionsList input', 'thisIsATest']);
+            });
 
         });
         describe('render', function () {
@@ -141,7 +140,7 @@ define(['view.app'], function (viewApp) {
             it('should call appModel.toJSON() and pass it to the template', function () {
                 var testObj = {
                     'test': 'testing'
-                }
+                };
                 viewAppFuncs.appModel.toJSON.andReturn(testObj);
 
                 viewAppFuncs.render();
@@ -180,7 +179,7 @@ define(['view.app'], function (viewApp) {
                 $ = jasmine.createSpy('$').andReturn({data: mock$Data});
                 spyOn(viewAppFuncs, 'prepareShortcutData');
                 viewAppFuncs.templates.shortcutTemplate = jasmine.createSpy('shortcutTemplate');
-            })
+            });
             it('should generate the html and change the URL to that html', function () {
                 var fakeHtmlData = {
                     "someData": "data"
@@ -196,8 +195,54 @@ define(['view.app'], function (viewApp) {
                 expect(mockUtils.navigateTo).toHaveBeenCalledWith("data:text/html;charset=UTF-8," + "some html");
 
 
-            })
-        })
+            });
+        });
+        describe('generateCustomShortCuts', function () {
+            var handlebarsReturn = 'handlebarsReturn',
+                compileFake;
+            beforeEach(function () {
+                compileFake = jasmine.createSpy('compileFake').andReturn(handlebarsReturn);
+
+                Handlebars = {
+                    compile: jasmine.createSpy('compile').andReturn(compileFake)
+                };
+
+            });
+            it('should return data with action same as which was passed to it if action doesn\'t contain {{*}}', function () {
+                var action = 'test:link';
+                expect(viewAppFuncs.generateCustomShortCuts(action, 'id')).toBe(action);
+                action = '{{test:link';
+                expect(viewAppFuncs.generateCustomShortCuts(action, 'id')).toBe(action);
+                action = 'test:link}}';
+                expect(viewAppFuncs.generateCustomShortCuts(action, 'id')).toBe(action);
+                action = 'test:{link}';
+                expect(viewAppFuncs.generateCustomShortCuts(action, 'id')).toBe(action);
+                action = 'test::::link';
+                expect(viewAppFuncs.generateCustomShortCuts(action, 'id')).toBe(action);
+            });
+            it('should call Handlebars and the template function and return the result of the template function if action matches {{(.*?)}}', function () {
+                var action = 'test:{{link}}',
+                    shortcutId = 'test',
+                    returnedAction = '';
+                viewAppFuncs.customSettings = {};
+                viewAppFuncs.customSettings[shortcutId] = {"link": "yeah"};
+                returnedAction = viewAppFuncs.generateCustomShortCuts(action, shortcutId);
+                expect(Handlebars.compile).toHaveBeenCalledWith(action);
+                expect(compileFake).toHaveBeenCalledWith({"link": "yeah"});
+                expect(returnedAction).toEqual(handlebarsReturn);
+            });
+            it('should call Handlebars and the template function with empty object if action matches {{(.*?)}} and there are no customSettings', function () {
+                var action = 'test:{{link}}',
+                    shortcutId = 'test',
+                    returnedAction = '';
+                viewAppFuncs.customSettings = {};
+                returnedAction = viewAppFuncs.generateCustomShortCuts(action, shortcutId);
+                expect(Handlebars.compile).toHaveBeenCalledWith(action);
+                expect(compileFake).toHaveBeenCalledWith({});
+                expect(returnedAction).toEqual(handlebarsReturn);
+            });
+
+        });
 
 
     });
