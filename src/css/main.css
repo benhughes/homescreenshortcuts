@@ -12,6 +12,9 @@ h1, h2, h3 {
     background-color: #fff;
     padding: 20px 0;
 }
+.help-block {
+    word-break: break-word;
+}
 
 
 .action {
