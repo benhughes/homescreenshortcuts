@@ -116,7 +116,8 @@ define(function (require) {
                 expect(viewAppFuncs.appModel.on).toHaveBeenCalledWith('change', $.proxy());
                 expect(viewAppFuncs.el.on).toHaveBeenCalled();
                 expect(viewAppFuncs.el.on.argsForCall[0]).toEqual(['click', 'ul.shortCuts a.createShortcut', 'thisIsATest']);
-                expect(viewAppFuncs.el.on.argsForCall[1]).toEqual(['change', 'ul.optionsList input', 'thisIsATest']);
+                expect(viewAppFuncs.el.on.argsForCall[1]).toEqual(['click', 'ul.shortCuts a.testShortcut', 'thisIsATest']);
+                expect(viewAppFuncs.el.on.argsForCall[2]).toEqual(['change', 'ul.optionsList input', 'thisIsATest']);
             });
 
         });
@@ -240,6 +241,24 @@ define(function (require) {
                 expect(returnedAction).toEqual(handlebarsReturn);
             });
 
+        });
+        describe('prepareShortcutData', function () {
+            it('should throw error if no shortcutId was supplied', function () {
+                var linkData = {
+                    appId: 23
+                };
+                expect(function () {
+                    viewAppFuncs.prepareShortcutData(linkData);
+                }).toThrow("no shortcut-id or/and app-id in the element")
+            });
+            it('should throw error if no appId was supplied', function () {
+                var linkData = {
+                    shortcutId: 23
+                };
+                expect(function () {
+                    viewAppFuncs.prepareShortcutData(linkData);
+                }).toThrow("no shortcut-id or/and app-id in the element")
+            });
         });
 
 

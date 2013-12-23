@@ -124,6 +124,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
+    grunt.registerTask('test', ['jshint', 'karma']);
     grunt.registerTask('build-js', ['requirejs', 'uglify:libs']);
     grunt.registerTask('build-html', ['create-html', 'addVersionNumber']);
 
