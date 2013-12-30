@@ -3,16 +3,15 @@
 		var history,
 			Log = function () {
 				var args = Array.prototype.slice.call(arguments),
-                    console = console || undefined,
                     log;
 				args.splice(1, 0, "--");
 				args[0] = "[" + args[0] + "]";
 				history = history || [];   // store logs to an array for reference
 				history.push(args);
 
-				if (console) {
-					log = Function.prototype.bind.call(console.log, console);
-					log.apply(console, args);
+				if (typeof window.console !== "undefined") {
+                    log = Function.prototype.bind.call(window.console.log, window.console);
+					log.apply(window.console, args);
 				}
 			};
 		return Log;
