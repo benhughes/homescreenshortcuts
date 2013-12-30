@@ -74,7 +74,7 @@ define(function (require) {
                 expect(window.$).toHaveBeenCalledWith('#mainContainer');
                 expect(classFunc.addClass).toHaveBeenCalledWith('loading');
                 expect(modelAppsMock).toHaveBeenCalledWith({id: 'test'});
-                expect(viewAppFuncs.collectionApps).toEqual(collectionAppsMock);
+                //expect(viewAppFuncs.collectionApps).toEqual(collectionAppsMock);
                 expect(viewAppFuncs.setUpTemplates).toHaveBeenCalled();
                 expect(viewAppFuncs.bindEvents).toHaveBeenCalled();
                 expect(modelAppsMockReturn.fetch).toHaveBeenCalled();

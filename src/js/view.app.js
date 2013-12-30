@@ -17,7 +17,7 @@ define(function (require) {
             this.el = $('#mainContainer').addClass('loading');
 
             this.appModel = new ModelApp({id: this.id});
-            this.collectionApps = require('collection.apps');
+            this.collectionApps = require('collection.all.apps');
 
             this.setUpTemplates();
             this.appModel.fetch();
