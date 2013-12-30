@@ -1,4 +1,5 @@
 {
+    "popular" : ["phone", "instagram", "spotify", "gmail", "twitter", "googlemaps"],
     "apps" : {
         "phone" : {
             "protocol" : "tel",
