@@ -1,10 +1,16 @@
-<h2>Create your own</h2>
-<p>Shortcut you want not on the list? Why not create your own. All you need to know is the URI you want
-<em>(e.g. to open up the <a href="#app-view/instagram">instagram</a> apps camera the data URI is instagram://camera)</em></p>
+<div class="header customShortcut">
+    <h1>Create your own</h1>
+    <div style="background-image: url('img/homepage-hero.png')" class="headerBg"></div>
+    <div class="fade-overlay"></div>
+</div>
+<div class="content">
+    <p>Shortcut you want not on the list? Why not create your own. All you need to know is the URI you want
+    <em>(e.g. to open up the <a href="#app-view/instagram">instagram</a> apps camera the data URI is instagram://camera)</em></p>
 
-<input class="custom customText form-control shortcut-uri" placeholder="URI (e.g. instagram://camera)" type="text" value="{{action}}">
+    <input class="custom customText form-control shortcut-uri" placeholder="URI (e.g. instagram://camera)" type="text" value="{{action}}">
 
-<div>
-    <a class="testShortcut btn btn-link" href="#">Try shortcut</a>
-    <a class="staticShortcutSubmit createShortcut btn btn-primary" href="#">Create shortcut</a>
+    <div>
+        <a class="testShortcut btn btn-link" href="{{action}}">Try shortcut</a>
+        <a class="staticShortcutSubmit createShortcut btn btn-primary" href="#">Create shortcut</a>
+    </div>
 </div>

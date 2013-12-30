@@ -1,36 +1,39 @@
 define([
     'log',
     'collection.all.apps',
-    'text!../templates/home-main.html',
+    'text!../templates/all.apps.html',
     'text!../templates/main.apps.html'
-], function (log, collectionApps, mainTemplate, appsTemplate) {
+], function (log, collectionApps, allAppsTemplate, appsTemplate) {
     return Backbone.View.extend({
-        logPrefix: "views.main",
+        logPrefix: "views.all.apps",
         className: 'main',
         $mainContainer: null,
         collectionApps: collectionApps,
         templates: {
-            mainTemplate: Handlebars.compile(mainTemplate),
+            allAppsTemplate: Handlebars.compile(allAppsTemplate),
             appsTemplate: Handlebars.compile(appsTemplate)
         },
-        cache: {
-            appsTemplate: '',
-            mainTemplate: ''
+        cache: {},
+        setUpCache: function () {
+            this.cache = {
+                allAppsTemplate: '',
+                mainTemplate: ''
+            };
         },
         initialize: function () {
             log(this.logPrefix, 'initializing...');
             this.$mainContainer = $('#mainContainer');
+            this.setUpCache();
             this.bindEvents();
             this.render();
         },
         bindEvents: function () {
             this.collectionApps.on('add', $.proxy(this.renderAppList, this));
             this.collectionApps.on('change', $.proxy(this.renderAppList, this));
-
         },
         render: function () {
             var data = {};
-            this.el.innerHTML = this.templates.mainTemplate(data);
+            this.el.innerHTML = this.templates.allAppsTemplate(data);
             this.$mainContainer.html(this.el);
             this.renderAppList();
         },
@@ -39,7 +42,9 @@ define([
                 html = this.templates.appsTemplate(data);
 
             if (html !== this.cache.appsTemplate) {
-                $('#popularAppsList').html(html);
+                log(this.logPrefix, 'renering appList');
+                $('#allAppsList').html(html);
+                this.cache.appsTemplate = html;
             }
         }
     });

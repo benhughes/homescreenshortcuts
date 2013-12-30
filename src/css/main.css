@@ -185,6 +185,10 @@ ul.list.shortCuts ul.optionsList li span.help{
     color: #7A7878;
 }
 
+.content p {
+    margin: 10px 20px;
+
+}
 .content h2, .content h3 {
     margin: 10px 20px;
 

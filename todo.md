@@ -5,7 +5,7 @@
 * Name
 * >20 apps
 * updated app icons
-*
+* loading stage as it shows on poor signal strength
 
 *Todo*
 * Custom shortcut creation
