@@ -4,6 +4,8 @@ var baseData = require('../../data-uncompiled/base-data.json'),
 
 
 var dataFolder = path.join(__dirname, '../../src/data');
+
+baseData = sortApps(baseData);
 baseData = preparePopularApps(baseData);
 
 new staticApi({
@@ -22,5 +24,29 @@ function preparePopularApps(origData) {
     }
     origData.popular = populatedPopularApps;
 
+    return origData;
+}
+
+function sortApps(origData) {
+    var appData = origData.apps,
+        sort, appKeys, sortedApps = {};
+
+    sort = function (a, b) {
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+        return 0;
+    };
+    console.log('sorting apps');
+    appKeys = Object.keys(appData).sort(sort);
+
+    for (var i = 0; i < appKeys.length; i++) {
+        sortedApps[appKeys[i]] = appData[appKeys[i]];
+    }
+
+    origData.apps = sortedApps;
     return origData;
 }
