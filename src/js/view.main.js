@@ -1,6 +1,6 @@
 define([
     'log',
-    'collection.all.apps',
+    'collection.popular.apps',
     'text!../templates/home-main.html',
     'text!../templates/main.apps.html'
 ], function (log, collectionApps, mainTemplate, appsTemplate) {
